@@ -1,9 +1,7 @@
 import ToDo from "./modules/taskclass.js";
 import * as  elements from "./modules/elements.js";
-import './style.css';
+import taskList from "./modules/taskList.js";
 
-// Create Book Array
- export const taskList = [];
 
 // Collect Stored data from Local Storage
 const store = JSON.parse(localStorage.getItem('todos'));
@@ -24,7 +22,7 @@ addBtn.addEventListener('click', (e) => {
 	} else {
 	const tValue = elements.userInput.value;
 	const aValue = 'false';
-	const nums = (taskList.length -1);
+	const nums = (taskList.length + 1);
 	const libro = new ToDo(tValue, aValue, nums);
 
 	// Push Libro to books
@@ -38,11 +36,15 @@ addBtn.addEventListener('click', (e) => {
 elements.toDoList.addEventListener('click', (e) => {
   if (e.target.classList.contains('button')) {
     const eachTask = e.target.parentElement;
+	console.log(eachTask);
+	// get the index of the task to be removed by the title of the task
+	const eachTaskIndex = taskList.findIndex(task => task.description === eachTask.querySelector('.text-in').innerText);
+	console.log(eachTaskIndex);
+	// remove the task from the array
+	taskList.splice(eachTaskIndex, 1);
+	// reset the id
+	ToDo.resetId();
     elements.toDoList.removeChild(eachTask);
-    const taskIndex = taskList.findIndex(
-      (tTask) => tTask.title === eachTask.querySelector('.text').innerText,
-    );
-    taskList.splice(taskIndex, 1);
     localStorage.setItem('todos', JSON.stringify(taskList));
   }
 });

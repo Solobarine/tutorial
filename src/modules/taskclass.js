@@ -1,5 +1,5 @@
 import * as elements from "./elements.js";
-import  { taskList }  from "../index.js";
+import  taskList  from "./taskList.js";
 
 // Create a Book Class
 export default class ToDo {
@@ -17,6 +17,16 @@ export default class ToDo {
     <button class="button">Remove</button>
     </div>`;
   }
+
+  // Method to reset the tasks id
+  static resetId() {
+    for (let i = 0;i < taskList.length;i++) {
+      taskList[i].id = i + 1;
+    }
+  }
+
+
+
 
 	// Method to Refresh Page
   static refreshToDo() {
